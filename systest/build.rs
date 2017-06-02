@@ -6,6 +6,11 @@ fn main() {
     let mut cfg = ctest::TestGenerator::new();
     let target = env::var("TARGET").unwrap();
 
+    // OpenSSL may ned a specific include path.
+    if let Ok(prefix) = env::var("OPENSSL_DIR") {
+        cfg.include(&format!("{}/include", prefix));
+    }
+
     // Needed to get OpenSSL to correctly undef symbols that are already on
     // Windows like X509_NAME
     if target.contains("windows") {
