@@ -6,10 +6,6 @@ fn main() {
     let mut cfg = ctest::TestGenerator::new();
     let target = env::var("TARGET").unwrap();
 
-    if let Ok(out) = env::var("DEP_OPENSSL_INCLUDE") {
-        cfg.include(&out);
-    }
-
     // Needed to get OpenSSL to correctly undef symbols that are already on
     // Windows like X509_NAME
     if target.contains("windows") {
